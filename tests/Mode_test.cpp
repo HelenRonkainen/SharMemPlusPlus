@@ -8,14 +8,14 @@ TEST(Mode, test_01)
      Mode m(0777);
      ASSERT_EQ(0777, m.get());
 }
-/*
+
 TEST(Mode, test_02)
 {
      using namespace linux::posix;
      Mode m;
      ASSERT_EQ(0644, m.get());
 }
-
+/*
 TEST(Mode, test_03)
 {
      using namespace linux::posix;
