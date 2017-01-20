@@ -18,9 +18,22 @@ add_executable(ShMem_test
   )
 
 target_link_libraries(ShMem_test
+  ShMem
   gtest_main
   gtest
-  uuid
+  pthread
+  )
+##################################################################
+
+##################################################################
+add_executable(Mode_test
+  Mode_test.cpp
+  )
+
+target_link_libraries(Mode_test
+  ShMem
+  gtest_main
+  gtest
   pthread
   )
 ##################################################################

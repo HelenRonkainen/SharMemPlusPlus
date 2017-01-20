@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
-#include <SharedMemory.hpp>
+#include <Mode.hpp>
 
 //////////////////////////////////////////////////////////////////
-TEST(ShMem, test_001)
+TEST(Mode, test_001)
 {
      using namespace linux;
-     posix::Name n("/ShMem_test");
+     //posix::Name n("/ShMem_test");
      //ASSERT_TRUE(true);
 }
 //////////////////////////////////////////////////////////////////
