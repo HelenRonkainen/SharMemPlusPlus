@@ -6,12 +6,25 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#include <sys/stat.h>
+
 #ifndef __linux_posix_Mode__
 #define __linux_posix_Mode__
 
 namespace linux {
      namespace posix {
 //////////////////////////////////////////////////////////////////
+	  class Mode {
+
+	  public:
+	       Mode(const mode_t);
+	       ~Mode() = default;
+
+	       mode_t get() const;
+
+	  private:
+	       mode_t mode;
+	  };
 //////////////////////////////////////////////////////////////////
      }
 }
