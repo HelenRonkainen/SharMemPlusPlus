@@ -22,4 +22,12 @@ Mode::Mode(const mode_t m):
 mode_t linux::posix::Mode::get() const {
      return mode;
 }
+
+bool linux::posix::Mode::operator==(const Mode& m) const {
+     return mode == m.mode;
+}
+
+bool linux::posix::Mode::operator!=(const Mode& m) const {
+     return mode != m.mode;
+}
 //////////////////////////////////////////////////////////////////

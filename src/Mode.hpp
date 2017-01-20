@@ -23,6 +23,9 @@ namespace linux {
 
 	       mode_t get() const;
 
+	       bool operator==(const Mode&) const;
+	       bool operator!=(const Mode&) const;
+
 	  private:
 	       mode_t mode;
 	  };
