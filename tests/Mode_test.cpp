@@ -31,7 +31,7 @@ TEST(Mode, test_03)
      m.other.set_execute();
      ASSERT_EQ(0777, m.get());
 }
-
+*/
 TEST(Mode, test_04)
 {
      using namespace linux::posix;
@@ -40,6 +40,14 @@ TEST(Mode, test_04)
      ASSERT_NE(m1, m2);
 }
 
+TEST(Mode, test_05)
+{
+     using namespace linux::posix;
+     Mode m1;
+     Mode m2;
+     ASSERT_EQ(m1, m2);
+}
+/*
 TEST(Mode, test_05)
 {
      using namespace linux::posix;
