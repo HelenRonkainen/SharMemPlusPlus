@@ -10,6 +10,11 @@
 
 //////////////////////////////////////////////////////////////////
 linux::posix::
+Mode::Mode():
+     mode(00644) {
+}
+
+linux::posix::
 Mode::Mode(const mode_t m):
      mode(m) {
 }

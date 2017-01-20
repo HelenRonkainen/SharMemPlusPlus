@@ -17,6 +17,7 @@ namespace linux {
 	  class Mode {
 
 	  public:
+	       Mode();
 	       Mode(const mode_t);
 	       ~Mode() = default;
 
