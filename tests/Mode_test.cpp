@@ -15,7 +15,7 @@ TEST(Mode, test_02)
      Mode m;
      ASSERT_EQ(0644, m.get());
 }
-/*
+
 TEST(Mode, test_03)
 {
      using namespace linux::posix;
@@ -31,7 +31,7 @@ TEST(Mode, test_03)
      m.other.set_execute();
      ASSERT_EQ(0777, m.get());
 }
-*/
+
 TEST(Mode, test_04)
 {
      using namespace linux::posix;
@@ -47,8 +47,8 @@ TEST(Mode, test_05)
      Mode m2;
      ASSERT_EQ(m1, m2);
 }
-/*
-TEST(Mode, test_05)
+
+TEST(Mode, test_06)
 {
      using namespace linux::posix;
      Mode m1(0777);
@@ -64,5 +64,17 @@ TEST(Mode, test_05)
      m2.other.set_execute();
      ASSERT_EQ(m1, m2);
 }
-*/
+
+TEST(Mode, test_07)
+{
+     using namespace linux::posix;
+     Mode m2(0777);
+     m2.user.unset_read();
+     m2.other.unset_read();
+     m2.user.unset_write();
+     m2.other.unset_write();
+     m2.user.unset_execute();
+     m2.other.unset_execute();
+     ASSERT_EQ(0070, m2.get());
+}
 //////////////////////////////////////////////////////////////////
