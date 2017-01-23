@@ -7,6 +7,7 @@
 //
 
 #include "Name.hpp"
+#include "OpenOptions.hpp"
 
 #ifndef __linux_posix_SharedMemory__
 #define __linux_posix_SharedMemory__
