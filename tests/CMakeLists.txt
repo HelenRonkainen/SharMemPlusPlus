@@ -37,3 +37,16 @@ target_link_libraries(Mode_test
   pthread
   )
 ##################################################################
+
+##################################################################
+add_executable(OFlag_test
+  OFlag_test.cpp
+  )
+
+target_link_libraries(OFlag_test
+  ShMem
+  gtest_main
+  gtest
+  pthread
+  )
+##################################################################
