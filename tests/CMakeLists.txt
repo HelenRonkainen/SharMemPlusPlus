@@ -19,6 +19,7 @@ add_executable(ShMem_test
 
 target_link_libraries(ShMem_test
   ShMem
+  rt
   gtest_main
   gtest
   pthread

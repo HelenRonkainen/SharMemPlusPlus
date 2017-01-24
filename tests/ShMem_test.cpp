@@ -59,4 +59,15 @@ TEST(ShMem, test_006)
      ASSERT_EQ(O_CREAT | O_RDWR, f.get_oflag().get());
      ASSERT_EQ(00644, f.get_mode().get());
 }
+
+TEST(ShMem, test_007)
+{
+     using namespace linux;
+     posix::Name n("/ShMem_test");
+     posix::OpenOptions f;
+     posix::SharedMemory sm1(n, f, true);
+     posix::SharedMemory sm2(n, f, false);
+     posix::SharedMemory sm3(n, f);
+     //ASSERT_EQ(00644, f.get_mode().get());
+}
 //////////////////////////////////////////////////////////////////
