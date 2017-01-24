@@ -6,18 +6,11 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#include "Common.hpp"
 #include <fcntl.h>
 
 #ifndef __linux_posix_OFlag__
 #define __linux_posix_OFlag__
-
-namespace linux {
-     namespace posix {
-//////////////////////////////////////////////////////////////////
-	  using flag_t = int;
-//////////////////////////////////////////////////////////////////
-     }
-}
 
 namespace linux {
      namespace posix {
