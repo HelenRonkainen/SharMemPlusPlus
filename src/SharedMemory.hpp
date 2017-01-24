@@ -15,6 +15,25 @@
 namespace linux {
      namespace posix {
 //////////////////////////////////////////////////////////////////
+	  using UNLINK_AFTER_DESTROY = bool;
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+	  class SharedMemory {
+
+	  public:
+	       SharedMemory(const Name,
+			    const OpenOptions,
+			    UNLINK_AFTER_DESTROY = true);
+	       ~SharedMemory();
+
+	  private:
+	       const Name name;
+	       const OpenOptions options;
+	       const UNLINK_AFTER_DESTROY destroy;
+
+	       int fd;
+	  };
 //////////////////////////////////////////////////////////////////
      }
 }
