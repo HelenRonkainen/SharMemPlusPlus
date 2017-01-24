@@ -7,7 +7,9 @@
 //
 
 #include "SharedMemory.hpp"
+#include "ErrorBuilder.hpp"
 #include <sys/mman.h>
+#include <errno.h>
 
 //////////////////////////////////////////////////////////////////
 linux::posix::
@@ -27,5 +29,18 @@ SharedMemory::~SharedMemory() {
      if (fd > 0) {
 	  if (destroy) shm_unlink(name.c_str());
      }
+}
+
+linux::posix::
+SharedMemory& linux::posix::SharedMemory::open() {
+     fd = shm_open(name.c_str(),
+		   options.get_oflag().get(),
+		   options.get_mode().get());
+     if (fd < 0) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+     return *this;
 }
 //////////////////////////////////////////////////////////////////

@@ -23,13 +23,20 @@ namespace linux {
 
 	  public:
 	       SharedMemory(const Name,
-			    const OpenOptions,
-			    UNLINK_AFTER_DESTROY = true);
+			    const OpenOptions = OpenOptions(),
+			    const UNLINK_AFTER_DESTROY = true);
 	       ~SharedMemory();
+
+	       SharedMemory(const SharedMemory&) = delete;
+	       SharedMemory& operator=(const SharedMemory&) = delete;
+	       SharedMemory(const SharedMemory&&) = delete;
+	       SharedMemory& operator=(const SharedMemory&&) = delete;
+
+	       SharedMemory& open();
 
 	  private:
 	       const Name name;
-	       const OpenOptions options;
+	       OpenOptions options;
 	       const UNLINK_AFTER_DESTROY destroy;
 
 	       int fd;
