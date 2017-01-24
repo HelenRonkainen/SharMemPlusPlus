@@ -10,6 +10,7 @@
 #include "ErrorBuilder.hpp"
 #include <sys/mman.h>
 #include <errno.h>
+#include <unistd.h>
 
 //////////////////////////////////////////////////////////////////
 linux::posix::
@@ -27,6 +28,7 @@ SharedMemory::SharedMemory(const Name n,
 linux::posix::
 SharedMemory::~SharedMemory() {
      if (fd > 0) {
+	  close();
 	  if (destroy) shm_unlink(name.c_str());
      }
 }
@@ -40,6 +42,15 @@ SharedMemory& linux::posix::SharedMemory::open() {
 	  int e = errno;
 	  ErrorBuilder eb;
 	  throw eb.build(e);
+     }
+     return *this;
+}
+
+linux::posix::
+SharedMemory& linux::posix::SharedMemory::close() {
+     if (fd > 0) {
+	  ::close(fd);
+	  fd = 0;
      }
      return *this;
 }

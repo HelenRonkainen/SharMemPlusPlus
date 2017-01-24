@@ -33,6 +33,7 @@ namespace linux {
 	       SharedMemory& operator=(const SharedMemory&&) = delete;
 
 	       SharedMemory& open();
+	       SharedMemory& close();
 
 	  private:
 	       const Name name;
