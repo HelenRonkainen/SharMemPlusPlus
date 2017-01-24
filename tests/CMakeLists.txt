@@ -64,3 +64,17 @@ target_link_libraries(ErrorBuilder_test
   pthread
   )
 ##################################################################
+
+##################################################################
+add_executable(MMaper_test
+  MMaper_test.cpp
+  )
+
+target_link_libraries(MMaper_test
+  ShMem
+  rt
+  gtest_main
+  gtest
+  pthread
+  )
+##################################################################
