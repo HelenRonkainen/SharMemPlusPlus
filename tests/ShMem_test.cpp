@@ -111,4 +111,30 @@ TEST(ShMem, test_010)
      posix::SharedMemory sm3(n, f, false);
      sm3.open().close();
 }
+
+TEST(ShMem, test_011)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n, f, false);
+     sm3.open().truncate(4096);
+}
+
+TEST(ShMem, test_012)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n, f, false);
+     try {
+	  sm3.open().truncate(-55);
+
+     } catch (...) {
+
+	  ASSERT_TRUE(true);
+	  return;
+     }
+     ASSERT_TRUE(false);
+}
 //////////////////////////////////////////////////////////////////
