@@ -34,6 +34,7 @@ namespace linux {
 
 	       SharedMemory& open();
 	       SharedMemory& close();
+	       SharedMemory& truncate(const size_t);
 
 	  private:
 	       const Name name;

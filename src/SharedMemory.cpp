@@ -50,7 +50,17 @@ linux::posix::
 SharedMemory& linux::posix::SharedMemory::close() {
      if (fd > 0) {
 	  ::close(fd);
-	  fd = 0;
+     }
+     return *this;
+}
+
+linux::posix::
+SharedMemory& linux::posix::SharedMemory::truncate(const size_t n) {
+     int res = ftruncate(fd, n);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
      }
      return *this;
 }
