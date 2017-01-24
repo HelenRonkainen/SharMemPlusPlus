@@ -51,3 +51,16 @@ target_link_libraries(OFlag_test
   pthread
   )
 ##################################################################
+
+##################################################################
+add_executable(ErrorBuilder_test
+  ErrorBuilder_test.cpp
+  )
+
+target_link_libraries(ErrorBuilder_test
+  ShMem
+  gtest_main
+  gtest
+  pthread
+  )
+##################################################################
