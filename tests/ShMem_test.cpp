@@ -102,4 +102,13 @@ TEST(ShMem, test_009)
      }
      ASSERT_TRUE(true);
 }
+
+TEST(ShMem, test_010)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n, f, false);
+     sm3.open().close();
+}
 //////////////////////////////////////////////////////////////////
