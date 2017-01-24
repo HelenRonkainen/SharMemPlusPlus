@@ -65,9 +65,41 @@ TEST(ShMem, test_007)
      using namespace linux;
      posix::Name n("/ShMem_test");
      posix::OpenOptions f;
-     posix::SharedMemory sm1(n, f, true);
-     posix::SharedMemory sm2(n, f, false);
+     //posix::SharedMemory sm1(n, f, true);
+     //posix::SharedMemory sm2(n, f, false);
      posix::SharedMemory sm3(n, f);
      //ASSERT_EQ(00644, f.get_mode().get());
+}
+
+TEST(ShMem, test_008)
+{
+     using namespace linux;
+     posix::Name n("");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n);
+     try {
+	  sm3.open();
+
+     } catch (...) {
+	  ASSERT_TRUE(true);
+	  return;
+     }
+     ASSERT_TRUE(false);
+}
+
+TEST(ShMem, test_009)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n, f, false);
+     try {
+	  sm3.open();
+
+     } catch (...) {
+	  ASSERT_TRUE(false);
+	  return;
+     }
+     ASSERT_TRUE(true);
 }
 //////////////////////////////////////////////////////////////////
