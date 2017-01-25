@@ -45,7 +45,6 @@ void linux::posix::Semaphore::close() {
 	  ErrorBuilder eb;
 	  throw eb.build(e);
      }
-     semaphore = nullptr;
 }
 
 linux::posix::
