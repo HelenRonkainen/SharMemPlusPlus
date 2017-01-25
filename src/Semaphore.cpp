@@ -7,6 +7,7 @@
 //
 
 #include "Semaphore.hpp"
+#include "ErrorBuilder.hpp"
 
 //////////////////////////////////////////////////////////////////
 linux::posix::
@@ -21,6 +22,18 @@ Semaphore::Semaphore(const Name n,
      semaphore(nullptr)
 {
      return;
+}
+
+void linux::posix::Semaphore::close() {
+     if (semaphore == SEM_FAILED) return;
+     if (semaphore == nullptr) return;
+     int res = sem_close(semaphore);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+     semaphore = nullptr;
 }
 
 linux::posix::

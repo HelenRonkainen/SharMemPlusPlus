@@ -31,6 +31,9 @@ namespace linux {
 	       Semaphore(const Semaphore&&) = delete;
 	       Semaphore& operator=(const Semaphore&&) = delete;
 
+	       void open();
+	       void close();
+
 	  private:
 	       const Name name;
 	       const UNLINK_AFTER_DESTROY destroy;
