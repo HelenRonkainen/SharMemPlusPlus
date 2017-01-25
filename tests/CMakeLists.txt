@@ -78,3 +78,16 @@ target_link_libraries(MMaper_test
   pthread
   )
 ##################################################################
+
+##################################################################
+add_executable(Semaphore_test
+  Semaphore_test.cpp
+  )
+
+target_link_libraries(Semaphore_test
+  ShMem
+  gtest_main
+  gtest
+  pthread
+  )
+##################################################################
