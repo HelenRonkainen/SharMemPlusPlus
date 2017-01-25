@@ -7,6 +7,55 @@
 //
 
 #include "MMaper.hpp"
+#include "ErrorBuilder.hpp"
+#include <sys/mman.h>
+#include <errno.h>
 
 //////////////////////////////////////////////////////////////////
+linux::posix::
+MMaper::MMaper(const SharedMemory& sm,
+	       const UNMAP_AFTER_DESTROY u,
+	       const MMapOptions mo):
+     memory(sm),
+     unmap_mode(u),
+     options(mo),
+     addr(nullptr)
+{
+     return;
+}
+
+linux::posix::
+MMaper::~MMaper() {
+     if (unmap_mode) {
+	  if (addr != nullptr) munmap(addr, memory.size);
+     }
+}
+
+linux::posix::
+MapInfo linux::posix::MMaper::map() {
+     void* res = ::mmap(NULL,
+			memory.size,
+			options.get_protection().get(),
+			options.get_flag().get(),
+			memory.fd,
+			0);
+     if (res == MAP_FAILED) {
+	  int e = errno;
+	  addr = nullptr;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+     addr = res;
+     return std::make_tuple(addr, memory.size);
+}
+
+void linux::posix::MMaper::unmap() {
+     int res = munmap(addr, memory.size);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+     addr = nullptr;
+}
 //////////////////////////////////////////////////////////////////
