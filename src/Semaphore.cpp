@@ -24,6 +24,18 @@ Semaphore::Semaphore(const Name n,
      return;
 }
 
+void linux::posix::Semaphore::open() {
+     semaphore = sem_open(name.c_str(),
+			  options.get_oflag().get(),
+			  options.get_mode().get(),
+			  value);
+     if (semaphore == SEM_FAILED) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+}
+
 void linux::posix::Semaphore::close() {
      if (semaphore == SEM_FAILED) return;
      if (semaphore == nullptr) return;
