@@ -33,6 +33,7 @@ namespace linux {
 
 	       void open();
 	       void close();
+	       int get() const;
 
 	  private:
 	       const Name name;

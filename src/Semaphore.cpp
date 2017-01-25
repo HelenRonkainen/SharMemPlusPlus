@@ -47,6 +47,17 @@ void linux::posix::Semaphore::close() {
      }
 }
 
+int linux::posix::Semaphore::get() const {
+     int ret;
+     int res = sem_getvalue(semaphore, &ret);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+     return ret;
+}
+
 linux::posix::
 Semaphore::~Semaphore() {
      if (semaphore == SEM_FAILED) return;
