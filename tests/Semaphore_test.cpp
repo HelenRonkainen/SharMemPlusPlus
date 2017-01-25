@@ -5,7 +5,6 @@
 TEST(Semaphore, test_01)
 {
      using namespace linux::posix;
-     ASSERT_TRUE(true);
      Name n("/ARTA");
      OpenOptions f;
      Semaphore s1(n, false, f, 4);
@@ -19,14 +18,24 @@ TEST(Semaphore, test_01)
 TEST(Semaphore, test_02)
 {
      using namespace linux::posix;
-     ASSERT_TRUE(true);
      Name n("/AA");
      Semaphore s2(n, true);
      s2.open();
+     ASSERT_EQ(1, s2.get());
      s2.close();
-     // ASSERT_EQ(posix::mmap::READ |
-     // 	       posix::mmap::WRITE,
-     // 	       mo.get_protection().get());
-     // ASSERT_EQ(posix::mmap::MSHARED, mo.get_flag().get());
+}
+
+TEST(Semaphore, test_03)
+{
+     using namespace linux::posix;
+     Name n("/A2");
+     OpenOptions f;
+     Semaphore s1(n, true, f, 4);
+     s1.open();
+     s1.close();
+     Semaphore s2(n, true, f, 10);
+     s2.open();
+     auto a2 = s2.get();
+     ASSERT_EQ(4, a2);
 }
 //////////////////////////////////////////////////////////////////
