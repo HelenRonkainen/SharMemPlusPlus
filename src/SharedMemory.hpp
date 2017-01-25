@@ -21,10 +21,12 @@ namespace linux {
 //////////////////////////////////////////////////////////////////
 	  class SharedMemory {
 
+	       friend class MMaper;
+
 	  public:
 	       SharedMemory(const Name,
-			    const OpenOptions = OpenOptions(),
-			    const UNLINK_AFTER_DESTROY = true);
+			    const UNLINK_AFTER_DESTROY = true,
+			    const OpenOptions = OpenOptions());
 	       ~SharedMemory();
 
 	       SharedMemory(const SharedMemory&) = delete;
@@ -42,6 +44,7 @@ namespace linux {
 	       const UNLINK_AFTER_DESTROY destroy;
 
 	       int fd;
+	       size_t size;
 	  };
 //////////////////////////////////////////////////////////////////
      }
