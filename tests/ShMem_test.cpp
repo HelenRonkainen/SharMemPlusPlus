@@ -67,7 +67,7 @@ TEST(ShMem, test_007)
      posix::OpenOptions f;
      //posix::SharedMemory sm1(n, f, true);
      //posix::SharedMemory sm2(n, f, false);
-     posix::SharedMemory sm3(n, f);
+     posix::SharedMemory sm3(n, true, f);
      //ASSERT_EQ(00644, f.get_mode().get());
 }
 
@@ -76,7 +76,7 @@ TEST(ShMem, test_008)
      using namespace linux;
      posix::Name n("");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n);
+     posix::SharedMemory sm3(n, false);
      try {
 	  sm3.open();
 
@@ -92,7 +92,7 @@ TEST(ShMem, test_009)
      using namespace linux;
      posix::Name n("/ARTA");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n, f, false);
+     posix::SharedMemory sm3(n, false, f);
      try {
 	  sm3.open();
 
@@ -108,7 +108,7 @@ TEST(ShMem, test_010)
      using namespace linux;
      posix::Name n("/ARTA");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n, f, false);
+     posix::SharedMemory sm3(n, false, f);
      sm3.open().close();
 }
 
@@ -117,7 +117,7 @@ TEST(ShMem, test_011)
      using namespace linux;
      posix::Name n("/ARTA");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n, f, false);
+     posix::SharedMemory sm3(n, false, f);
      sm3.open().truncate(4096);
 }
 
@@ -126,7 +126,7 @@ TEST(ShMem, test_012)
      using namespace linux;
      posix::Name n("/ARTA");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n, f, false);
+     posix::SharedMemory sm3(n, false, f);
      try {
 	  sm3.open().truncate(-55);
 
