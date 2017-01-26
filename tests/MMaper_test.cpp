@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <SharedMemory.hpp>
 #include <MMaper.hpp>
+#include <Error.hpp>
 
 //////////////////////////////////////////////////////////////////
 TEST(MMaper, test_001)
@@ -27,7 +28,13 @@ TEST(MMaper, test_002)
      posix::MMaper m1(sm3, true, mo);
      posix::MMaper m2(sm3, true);
      posix::MMaper m3(sm3);
-     m3.unmap();
+     try {
+	  m3.unmap();
+     } catch (linux::posix::NullPointer& d) {
+	  ASSERT_TRUE(true);
+	  return;
+     }
+     ASSERT_TRUE(false);
 }
 
 TEST(MMaper, test_003)
