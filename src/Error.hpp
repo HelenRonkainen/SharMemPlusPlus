@@ -31,7 +31,16 @@ namespace linux {
 	  private:
 	       const Code code;
 	       const Message mess;
-     };
+	  };
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+	  class NullPointer: public Error {
+
+	  public:
+	       NullPointer(): Error("Using of null pointer!", -1) { }
+	       ~NullPointer() = default;
+	  };
 //////////////////////////////////////////////////////////////////
      }
 }
