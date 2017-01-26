@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <Semaphore.hpp>
+#include <Error.hpp>
 
 //////////////////////////////////////////////////////////////////
 TEST(Semaphore, test_01)
@@ -9,6 +10,13 @@ TEST(Semaphore, test_01)
      OpenOptions f;
      Semaphore s1(n, false, f, 4);
      Semaphore s2(n, false);
+     try {
+	  s2.close();
+     } catch (linux::posix::NullPointer& d) {
+	  ASSERT_TRUE(true);
+	  return;
+     }
+     ASSERT_TRUE(false);
 }
 
 TEST(Semaphore, test_02)
