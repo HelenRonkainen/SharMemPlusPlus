@@ -45,6 +45,8 @@ namespace linux {
 	       const unsigned int value;
 
 	       sem_t* semaphore;
+
+	       void error(const int) const;
 	  };
 //////////////////////////////////////////////////////////////////
      }

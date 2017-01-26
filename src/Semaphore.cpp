@@ -29,41 +29,25 @@ void linux::posix::Semaphore::open() {
 			  options.get_oflag().get(),
 			  options.get_mode().get(),
 			  value);
-     if (semaphore == SEM_FAILED) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (semaphore == SEM_FAILED) error(errno);
 }
 
 void linux::posix::Semaphore::close() const {
      if (semaphore == nullptr) throw NullPointer();
      int res = sem_close(semaphore);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == -1) error(errno);
 }
 
 void linux::posix::Semaphore::post() const {
      if (semaphore == nullptr) throw NullPointer();
      int res = sem_post(semaphore);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == -1) error(errno);
 }
 
 void linux::posix::Semaphore::wait() const {
      if (semaphore == nullptr) throw NullPointer();
      int res = sem_wait(semaphore);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == -1) error(errno);
 }
 
 bool linux::posix::Semaphore::trywait() const {
@@ -72,8 +56,7 @@ bool linux::posix::Semaphore::trywait() const {
      if (res == -1) {
 	  int e = errno;
 	  if (e == EAGAIN) return false;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
+	  error(e);
      }
      return true;
 }
@@ -82,11 +65,7 @@ int linux::posix::Semaphore::get() const {
      if (semaphore == nullptr) throw NullPointer();
      int ret = 0;
      int res = sem_getvalue(semaphore, &ret);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == -1) error(errno);
      return ret;
 }
 
@@ -94,5 +73,10 @@ linux::posix::
 Semaphore::~Semaphore() {
      if (semaphore != nullptr) sem_close(semaphore);
      if (destroy) sem_unlink(name.c_str());
+}
+
+void linux::posix::Semaphore::error(const int n) const {
+     ErrorBuilder eb;
+     throw eb.build(n);
 }
 //////////////////////////////////////////////////////////////////
