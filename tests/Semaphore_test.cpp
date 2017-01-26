@@ -34,4 +34,17 @@ TEST(Semaphore, test_03)
      auto a2 = s2.get();
      ASSERT_EQ(4, a2);
 }
+
+TEST(Semaphore, test_04)
+{
+     using namespace linux::posix;
+     Name n("/A3");
+     OpenOptions f;
+     Semaphore s1(n, true);
+     s1.open();
+     s1.post();
+     auto a2 = s1.get();
+     ASSERT_EQ(2, a2);
+     s1.close();
+}
 //////////////////////////////////////////////////////////////////
