@@ -9,8 +9,8 @@ TEST(MMaper, test_001)
      using namespace linux;
      posix::Name n("/ARTA");
      posix::OpenOptions f;
-     posix::SharedMemory sm3(n, false, f);
-     sm3.open().truncate(4096);
+     posix::SharedMemory sm3(n, 4096, false, f);
+     sm3.open().truncate();
      posix::MMapOptions mo;
      ASSERT_EQ(posix::mmap::READ |
 	       posix::mmap::WRITE,
@@ -22,8 +22,8 @@ TEST(MMaper, test_002)
 {
      using namespace linux;
      posix::Name n("/ARTA");
-     posix::SharedMemory sm3(n, false);
-     sm3.open().truncate(4096);
+     posix::SharedMemory sm3(n, 4096, false);
+     sm3.open().truncate();
      posix::MMapOptions mo;
      posix::MMaper m1(sm3, true, mo);
      posix::MMaper m2(sm3, true);
@@ -41,8 +41,8 @@ TEST(MMaper, test_003)
 {
      using namespace linux;
      posix::Name n("/ARTA");
-     posix::SharedMemory sm3(n, false);
-     sm3.open().truncate(4096);
+     posix::SharedMemory sm3(n, 4096, false);
+     sm3.open().truncate();
      posix::MMaper m3(sm3);
      auto r = m3.map();
      ASSERT_EQ(4096, std::get<size_t>(r));
