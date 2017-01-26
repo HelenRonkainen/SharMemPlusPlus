@@ -22,6 +22,7 @@ namespace linux {
 
 	  public:
 	       SharedMemory(const Name,
+			    const size_t,
 			    const UNLINK_AFTER_DESTROY = false,
 			    const OpenOptions = OpenOptions());
 	       ~SharedMemory();
@@ -33,7 +34,7 @@ namespace linux {
 
 	       SharedMemory& open();
 	       SharedMemory& close();
-	       SharedMemory& truncate(const size_t);
+	       SharedMemory& truncate();
 
 	  private:
 	       const Name name;
@@ -41,7 +42,7 @@ namespace linux {
 	       const UNLINK_AFTER_DESTROY destroy;
 
 	       int fd;
-	       size_t size;
+	       const size_t size;
 
 	       void error(const int) const;
 	  };

@@ -15,13 +15,14 @@
 //////////////////////////////////////////////////////////////////
 linux::posix::
 SharedMemory::SharedMemory(const Name n,
+			   const size_t s,
 			   UNLINK_AFTER_DESTROY d,
 			   const OpenOptions oo):
      name(n),
      options(oo),
      destroy(d),
      fd(0),
-     size(0)
+     size(s)
 {
      return;
 }
@@ -49,11 +50,9 @@ SharedMemory& linux::posix::SharedMemory::close() {
 }
 
 linux::posix::
-SharedMemory& linux::posix::SharedMemory::truncate(const size_t n) {
-     size = 0;
-     int res = ftruncate(fd, n);
+SharedMemory& linux::posix::SharedMemory::truncate() {
+     int res = ftruncate(fd, size);
      if (res == -1) error(errno);
-     size = n;
      return *this;
 }
 
