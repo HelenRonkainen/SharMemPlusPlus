@@ -7,6 +7,7 @@
 //
 
 #include "Common.hpp"
+#include "FlagCommon.hpp"
 #include <sys/mman.h>
 
 #ifndef __linux_posix_MFlag__
@@ -39,26 +40,12 @@ namespace linux {
 namespace linux {
      namespace posix {
 //////////////////////////////////////////////////////////////////
-	  class MFlag {
+	  class MFlag: public Flag {
 
 	  public:
-	       MFlag() {
-		    using namespace mmap;
-		    flag = MSHARED;
-	       }
-
-	       MFlag(const flag_t f) { flag = f; }
+	       MFlag(): Flag(mmap::MSHARED) { }
+	       MFlag(const flag_t f): Flag(f) { }
 	       ~MFlag() = default;
-
-	       flag_t get() const { return flag; }
-
-	       MFlag& add(const flag_t f) {
-		    flag = flag | f;
-		    return *this;
-	       }
-
-	  private:
-	       flag_t flag;
 	  };
 //////////////////////////////////////////////////////////////////
      }

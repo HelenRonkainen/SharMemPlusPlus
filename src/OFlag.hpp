@@ -7,6 +7,7 @@
 //
 
 #include "Common.hpp"
+#include "FlagCommon.hpp"
 #include <fcntl.h>
 
 #ifndef __linux_posix_OFlag__
@@ -45,26 +46,12 @@ namespace linux {
 namespace linux {
      namespace posix {
 //////////////////////////////////////////////////////////////////
-	  class OFlag {
+	  class OFlag: public Flag {
 
 	  public:
-	       OFlag() {
-		    using namespace oflag;
-		    flag = (CREAT | RDWR);
-	       }
-
-	       OFlag(const flag_t f) { flag = f; }
+	       OFlag(): Flag(oflag::CREAT | oflag::RDWR) { }
+	       OFlag(const flag_t f): Flag(f) { }
 	       ~OFlag() = default;
-
-	       flag_t get() const { return flag; }
-
-	       OFlag& add(const flag_t f) {
-		    flag = flag | f;
-		    return *this;
-	       }
-
-	  private:
-	       flag_t flag;
 	  };
 //////////////////////////////////////////////////////////////////
      }

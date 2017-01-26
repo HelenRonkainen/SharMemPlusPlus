@@ -7,6 +7,7 @@
 //
 
 #include "Common.hpp"
+#include "FlagCommon.hpp"
 #include <sys/mman.h>
 
 #ifndef __linux_posix_Protection__
@@ -28,26 +29,12 @@ namespace linux {
 namespace linux {
      namespace posix {
 //////////////////////////////////////////////////////////////////
-	  class Protection {
+	  class Protection: public Flag {
 
 	  public:
-	       Protection() {
-		    using namespace mmap;
-		    flag = (READ | WRITE);
-	       }
-
-	       Protection(const flag_t f) { flag = f; }
+	       Protection(): Flag(mmap::READ | mmap::WRITE) { }
+	       Protection(const flag_t f): Flag(f) { }
 	       ~Protection() = default;
-
-	       flag_t get() const { return flag; }
-
-	       Protection& add(const flag_t f) {
-		    flag = flag | f;
-		    return *this;
-	       }
-
-	  private:
-	       flag_t flag;
 	  };
 //////////////////////////////////////////////////////////////////
      }
