@@ -55,6 +55,18 @@ void linux::posix::Semaphore::post() const {
 	  throw eb.build(e);
      }
 }
+/*
+int sem_trywait(sem_t *sem);
+int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
+*/
+void linux::posix::Semaphore::wait() const {
+     int res = sem_wait(semaphore);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+}
 
 int linux::posix::Semaphore::get() const {
      int ret = 0;

@@ -34,6 +34,7 @@ namespace linux {
 	       void open();
 	       void close() const;
 	       void post() const;
+	       void wait() const;
 	       int get() const;
 
 	  private:
