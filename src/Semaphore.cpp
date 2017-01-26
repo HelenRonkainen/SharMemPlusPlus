@@ -37,8 +37,7 @@ void linux::posix::Semaphore::open() {
 }
 
 void linux::posix::Semaphore::close() const {
-     if (semaphore == SEM_FAILED) return;
-     if (semaphore == nullptr) return;
+     if (semaphore == nullptr) throw NullPointer();
      int res = sem_close(semaphore);
      if (res == -1) {
 	  int e = errno;
@@ -48,6 +47,7 @@ void linux::posix::Semaphore::close() const {
 }
 
 void linux::posix::Semaphore::post() const {
+     if (semaphore == nullptr) throw NullPointer();
      int res = sem_post(semaphore);
      if (res == -1) {
 	  int e = errno;
@@ -57,6 +57,7 @@ void linux::posix::Semaphore::post() const {
 }
 
 void linux::posix::Semaphore::wait() const {
+     if (semaphore == nullptr) throw NullPointer();
      int res = sem_wait(semaphore);
      if (res == -1) {
 	  int e = errno;
@@ -66,6 +67,7 @@ void linux::posix::Semaphore::wait() const {
 }
 
 bool linux::posix::Semaphore::trywait() const {
+     if (semaphore == nullptr) throw NullPointer();
      int res = sem_trywait(semaphore);
      if (res == -1) {
 	  int e = errno;
@@ -77,6 +79,7 @@ bool linux::posix::Semaphore::trywait() const {
 }
 
 int linux::posix::Semaphore::get() const {
+     if (semaphore == nullptr) throw NullPointer();
      int ret = 0;
      int res = sem_getvalue(semaphore, &ret);
      if (res == -1) {
@@ -89,9 +92,7 @@ int linux::posix::Semaphore::get() const {
 
 linux::posix::
 Semaphore::~Semaphore() {
-     if (semaphore == SEM_FAILED) return;
-     if (semaphore == nullptr) return;
-     sem_close(semaphore);
+     if (semaphore != nullptr) sem_close(semaphore);
      if (destroy) sem_unlink(name.c_str());
 }
 //////////////////////////////////////////////////////////////////
