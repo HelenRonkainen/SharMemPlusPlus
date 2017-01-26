@@ -66,4 +66,24 @@ TEST(Semaphore, test_05)
      ASSERT_EQ(0, a2);
      s1.close();
 }
+
+TEST(Semaphore, test_06)
+{
+     using namespace linux::posix;
+     Name n("/A3");
+     OpenOptions f;
+     Semaphore s1(n, true);
+     s1.open();
+     s1.post();
+     auto a2 = s1.get();
+     ASSERT_EQ(2, a2);
+     ASSERT_TRUE(s1.trywait());
+     a2 = s1.get();
+     ASSERT_EQ(1, a2);
+     ASSERT_TRUE(s1.trywait());
+     a2 = s1.get();
+     ASSERT_EQ(0, a2);
+     ASSERT_FALSE(s1.trywait());
+     s1.close();
+}
 //////////////////////////////////////////////////////////////////
