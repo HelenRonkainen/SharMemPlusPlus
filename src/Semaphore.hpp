@@ -32,7 +32,8 @@ namespace linux {
 	       Semaphore& operator=(const Semaphore&&) = delete;
 
 	       void open();
-	       void close();
+	       void close() const;
+	       void post() const;
 	       int get() const;
 
 	  private:

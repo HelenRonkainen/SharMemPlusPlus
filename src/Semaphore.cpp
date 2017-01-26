@@ -36,7 +36,7 @@ void linux::posix::Semaphore::open() {
      }
 }
 
-void linux::posix::Semaphore::close() {
+void linux::posix::Semaphore::close() const {
      if (semaphore == SEM_FAILED) return;
      if (semaphore == nullptr) return;
      int res = sem_close(semaphore);
@@ -47,8 +47,17 @@ void linux::posix::Semaphore::close() {
      }
 }
 
+void linux::posix::Semaphore::post() const {
+     int res = sem_post(semaphore);
+     if (res == -1) {
+	  int e = errno;
+	  ErrorBuilder eb;
+	  throw eb.build(e);
+     }
+}
+
 int linux::posix::Semaphore::get() const {
-     int ret;
+     int ret = 0;
      int res = sem_getvalue(semaphore, &ret);
      if (res == -1) {
 	  int e = errno;
