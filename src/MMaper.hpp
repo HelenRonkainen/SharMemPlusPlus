@@ -29,6 +29,11 @@ namespace linux {
 		      const MMapOptions = MMapOptions());
 	       ~MMaper();
 
+	       MMaper(const MMaper&) = delete;
+	       MMaper& operator= (const MMaper&) = delete;
+	       MMaper(const MMaper&&) = delete;
+	       MMaper& operator= (const MMaper&&) = delete;
+
 	       MapInfo map();
 	       void unmap() const;
 
