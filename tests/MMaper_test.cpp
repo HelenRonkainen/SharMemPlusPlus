@@ -37,7 +37,9 @@ TEST(MMaper, test_003)
      posix::SharedMemory sm3(n, false);
      sm3.open().truncate(4096);
      posix::MMaper m3(sm3);
-     m3.map();
+     auto r = m3.map();
+     ASSERT_EQ(4096, std::get<size_t>(r));
+     ASSERT_NE(nullptr, std::get<void*>(r));
      m3.unmap();
 }
 //////////////////////////////////////////////////////////////////

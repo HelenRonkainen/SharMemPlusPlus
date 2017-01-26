@@ -9,10 +9,6 @@ TEST(Semaphore, test_01)
      OpenOptions f;
      Semaphore s1(n, false, f, 4);
      Semaphore s2(n, false);
-     // ASSERT_EQ(posix::mmap::READ |
-     // 	       posix::mmap::WRITE,
-     // 	       mo.get_protection().get());
-     // ASSERT_EQ(posix::mmap::MSHARED, mo.get_flag().get());
 }
 
 TEST(Semaphore, test_02)
