@@ -25,12 +25,12 @@ namespace linux {
 
 	  public:
 	       MMaper(const SharedMemory&,
-		      const UNMAP_AFTER_DESTROY = true,
+		      const UNMAP_AFTER_DESTROY = false,
 		      const MMapOptions = MMapOptions());
 	       ~MMaper();
 
 	       MapInfo map();
-	       void unmap();
+	       void unmap() const;
 
 	  private:
 	       const SharedMemory& memory;
@@ -38,6 +38,8 @@ namespace linux {
 	       MMapOptions options;
 
 	       void* addr;
+
+	       void error(const int) const;
 	  };
 //////////////////////////////////////////////////////////////////
      }

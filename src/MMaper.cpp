@@ -39,23 +39,19 @@ MapInfo linux::posix::MMaper::map() {
 			options.get_flag().get(),
 			memory.fd,
 			0);
-     if (res == MAP_FAILED) {
-	  int e = errno;
-	  addr = nullptr;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == MAP_FAILED) error(errno);
      addr = res;
      return std::make_tuple(addr, memory.size);
 }
 
-void linux::posix::MMaper::unmap() {
+void linux::posix::MMaper::unmap() const {
+     if (addr == nullptr) throw NullPointer();
      int res = munmap(addr, memory.size);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
-     addr = nullptr;
+     if (res == -1) error(errno);
+}
+
+void linux::posix::MMaper::error(const int n) const {
+     ErrorBuilder eb;
+     throw eb.build(n);
 }
 //////////////////////////////////////////////////////////////////
