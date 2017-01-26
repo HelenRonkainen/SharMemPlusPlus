@@ -22,7 +22,7 @@ namespace linux {
 
 	  public:
 	       SharedMemory(const Name,
-			    const UNLINK_AFTER_DESTROY = true,
+			    const UNLINK_AFTER_DESTROY = false,
 			    const OpenOptions = OpenOptions());
 	       ~SharedMemory();
 
@@ -42,6 +42,8 @@ namespace linux {
 
 	       int fd;
 	       size_t size;
+
+	       void error(const int) const;
 	  };
 //////////////////////////////////////////////////////////////////
      }

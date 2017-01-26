@@ -28,10 +28,8 @@ SharedMemory::SharedMemory(const Name n,
 
 linux::posix::
 SharedMemory::~SharedMemory() {
-     if (fd > 0) {
-	  close();
-	  if (destroy) shm_unlink(name.c_str());
-     }
+     if (fd > 0) ::close(fd);
+     if (destroy) shm_unlink(name.c_str());
 }
 
 linux::posix::
@@ -39,19 +37,14 @@ SharedMemory& linux::posix::SharedMemory::open() {
      fd = shm_open(name.c_str(),
 		   options.get_oflag().get(),
 		   options.get_mode().get());
-     if (fd < 0) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (fd == -1) error(errno);
      return *this;
 }
 
 linux::posix::
 SharedMemory& linux::posix::SharedMemory::close() {
-     if (fd > 0) {
-	  ::close(fd);
-     }
+     int res = ::close(fd);
+     if (res == -1) error(errno);
      return *this;
 }
 
@@ -59,12 +52,13 @@ linux::posix::
 SharedMemory& linux::posix::SharedMemory::truncate(const size_t n) {
      size = 0;
      int res = ftruncate(fd, n);
-     if (res == -1) {
-	  int e = errno;
-	  ErrorBuilder eb;
-	  throw eb.build(e);
-     }
+     if (res == -1) error(errno);
      size = n;
      return *this;
+}
+
+void linux::posix::SharedMemory::error(const int n) const {
+     ErrorBuilder eb;
+     throw eb.build(n);
 }
 //////////////////////////////////////////////////////////////////
