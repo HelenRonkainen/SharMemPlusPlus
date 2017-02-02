@@ -164,4 +164,24 @@ TEST(ShMem, test_013)
      m2.unmap();
      sm2.close();
 }
+
+TEST(ShMem, test_014)
+{
+     using namespace linux;
+     posix::Name n("/KARTOFAN");
+     posix::SharedMemory sm3(n);
+     sm3.open();
+     ASSERT_EQ(0, sm3.fd_size());
+}
+
+TEST(ShMem, test_015)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::OpenOptions f;
+     posix::SharedMemory sm3(n, 4096, true, f);
+     sm3.open().truncate();
+     ASSERT_EQ(4096, sm3.fd_size());
+}
+
 //////////////////////////////////////////////////////////////////
