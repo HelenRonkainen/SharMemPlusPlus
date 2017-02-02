@@ -10,6 +10,36 @@
 
 //////////////////////////////////////////////////////////////////
 linux::posix::
+MMapOptions::MMapOptions(const Protection p):
+     mode(p)
+{
+     return;
+}
+
+linux::posix::
+MMapOptions::MMapOptions(const MFlag mf):
+     flag(mf)
+{
+     return;
+}
+
+linux::posix::
+MMapOptions::MMapOptions(const Protection p, const MFlag mf):
+     mode(p),
+     flag(mf)
+{
+     return;
+}
+
+linux::posix::
+MMapOptions::MMapOptions(const MFlag mf, const Protection p):
+     mode(p),
+     flag(mf)
+{
+     return;
+}
+
+linux::posix::
 Protection& linux::posix::MMapOptions::get_protection() {
      return mode;
 }
