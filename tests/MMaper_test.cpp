@@ -62,4 +62,16 @@ TEST(MMaper, test_004)
      ASSERT_NE(nullptr, std::get<void*>(r));
      m3.unmap();
 }
+
+TEST(MMaper, test_005)
+{
+     using namespace linux::posix;
+     MMapOptions m1();
+     Protection p;
+     MMapOptions m2(p);
+     MFlag f;
+     MMapOptions m3(f);
+     MMapOptions m4(p, f);
+     MMapOptions m5(f, p);
+}
 //////////////////////////////////////////////////////////////////
