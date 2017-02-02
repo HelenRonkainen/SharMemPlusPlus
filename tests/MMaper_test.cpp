@@ -49,4 +49,17 @@ TEST(MMaper, test_003)
      ASSERT_NE(nullptr, std::get<void*>(r));
      m3.unmap();
 }
+
+TEST(MMaper, test_004)
+{
+     using namespace linux;
+     posix::Name n("/ARTA");
+     posix::SharedMemory sm3(n, 4096, false);
+     sm3.open().truncate();
+     posix::MMaper m3(sm3);
+     auto r = m3.map(512);
+     ASSERT_EQ(512, std::get<size_t>(r));
+     ASSERT_NE(nullptr, std::get<void*>(r));
+     m3.unmap();
+}
 //////////////////////////////////////////////////////////////////
