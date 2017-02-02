@@ -56,6 +56,13 @@ SharedMemory& linux::posix::SharedMemory::truncate() {
      return *this;
 }
 
+size_t linux::posix::SharedMemory::fd_size() const {
+     struct stat buffer;
+     int res = fstat(fd, &buffer);
+     if (res == -1) error(errno);
+     return buffer.st_size;
+}
+
 void linux::posix::SharedMemory::error(const int n) const {
      ErrorBuilder eb;
      throw eb.build(n);
