@@ -35,6 +35,7 @@ namespace linux {
 	       MMaper& operator= (const MMaper&&) = delete;
 
 	       MapInfo map();
+	       MapInfo map(const size_t);
 	       void unmap() const;
 
 	  private:
@@ -43,8 +44,10 @@ namespace linux {
 	       MMapOptions options;
 
 	       void* addr;
+	       size_t mmap_size;
 
 	       void error(const int) const;
+	       MapInfo maping(const size_t);
 	  };
 //////////////////////////////////////////////////////////////////
      }

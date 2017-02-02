@@ -19,7 +19,8 @@ MMaper::MMaper(const SharedMemory& sm,
      memory(sm),
      unmap_mode(u),
      options(mo),
-     addr(nullptr)
+     addr(nullptr),
+     mmap_size(0)
 {
      return;
 }
@@ -27,26 +28,37 @@ MMaper::MMaper(const SharedMemory& sm,
 linux::posix::
 MMaper::~MMaper() {
      if (unmap_mode) {
-	  if (addr != nullptr) munmap(addr, memory.size);
+	  if (addr != nullptr) munmap(addr, mmap_size);
      }
 }
 
 linux::posix::
 MapInfo linux::posix::MMaper::map() {
+     return maping(memory.size);
+}
+
+linux::posix::
+MapInfo linux::posix::MMaper::map(const size_t sss) {
+     return maping(sss);
+}
+
+linux::posix::
+MapInfo linux::posix::MMaper::maping(const size_t s) {
      void* res = ::mmap(NULL,
-			memory.size,
+			s,
 			options.get_protection().get(),
 			options.get_flag().get(),
 			memory.fd,
 			0);
      if (res == MAP_FAILED) error(errno);
      addr = res;
-     return std::make_tuple(addr, memory.size);
+     mmap_size = s;
+     return std::make_tuple(addr, s);
 }
 
 void linux::posix::MMaper::unmap() const {
      if (addr == nullptr) throw NullPointer();
-     int res = munmap(addr, memory.size);
+     int res = munmap(addr, mmap_size);
      if (res == -1) error(errno);
 }
 
