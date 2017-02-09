@@ -35,9 +35,9 @@ namespace linux {
 	       const flag_t NOFOLLOW  = O_NOFOLLOW;
 	       const flag_t NONBLOCK  = O_NONBLOCK;
 	       const flag_t NDELAY    = O_NDELAY;
-	       const flag_t PATH      = O_PATH;
 	       const flag_t SYNC      = O_SYNC;
-	       const flag_t TMPFILE   = O_TMPFILE;
+	       //const flag_t PATH      = O_PATH;
+	       //const flag_t TMPFILE   = O_TMPFILE;
 //////////////////////////////////////////////////////////////////
 	  }
      }
