@@ -94,4 +94,16 @@ TEST(Semaphore, test_06)
      ASSERT_FALSE(s1.trywait());
      s1.close();
 }
+
+TEST(Semaphore, test_07)
+{
+     using namespace linux::posix;
+     Name n("/FORUNLINK");
+     Semaphore s2(n);
+     s2.unlink();
+     s2.open();
+     ASSERT_EQ(1, s2.get());
+     s2.close();
+     s2.unlink();
+}
 //////////////////////////////////////////////////////////////////
