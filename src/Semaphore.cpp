@@ -69,6 +69,10 @@ int linux::posix::Semaphore::get() const {
      return ret;
 }
 
+void linux::posix::Semaphore::unlink() const {
+     sem_unlink(name.c_str());
+}
+
 linux::posix::
 Semaphore::~Semaphore() {
      if (semaphore != nullptr) sem_close(semaphore);

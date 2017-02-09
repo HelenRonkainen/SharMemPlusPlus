@@ -37,6 +37,7 @@ namespace linux {
 	       void wait() const;
 	       bool trywait() const;
 	       int get() const;
+	       void unlink() const;
 
 	  private:
 	       const Name name;
