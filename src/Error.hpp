@@ -23,7 +23,7 @@ namespace linux {
 
 	  public:
 	       Error(const Message, const Code);
-	       virtual ~Error();
+	       virtual ~Error() noexcept;
 
 	       Code getCode() const;
 	       virtual const char* what() const noexcept;
@@ -39,7 +39,7 @@ namespace linux {
 
 	  public:
 	       NullPointer(): Error("Using of null pointer!", -1) { }
-	       ~NullPointer() = default;
+	       ~NullPointer() noexcept = default;
 	  };
 //////////////////////////////////////////////////////////////////
      }

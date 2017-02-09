@@ -18,7 +18,7 @@ Error::Error(const Message m, const Code c):
 }
 
 linux::posix::
-Error::~Error() {
+Error::~Error() noexcept {
      return;
 }
 
