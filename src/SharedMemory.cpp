@@ -56,6 +56,12 @@ SharedMemory& linux::posix::SharedMemory::truncate() {
      return *this;
 }
 
+linux::posix::
+SharedMemory& linux::posix::SharedMemory::unlink() {
+     shm_unlink(name.c_str());
+     return *this;
+}
+
 size_t linux::posix::SharedMemory::fd_size() const {
      struct stat buffer;
      int res = fstat(fd, &buffer);

@@ -35,6 +35,7 @@ namespace linux {
 	       SharedMemory& open();
 	       SharedMemory& close();
 	       SharedMemory& truncate();
+	       SharedMemory& unlink();
 
 	       size_t fd_size() const;
 
