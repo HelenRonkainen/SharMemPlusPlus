@@ -184,4 +184,12 @@ TEST(ShMem, test_015)
      ASSERT_EQ(4096, sm3.fd_size());
 }
 
+TEST(ShMem, test_016)
+{
+     using namespace linux;
+     posix::Name n("/KARTOFAN");
+     posix::SharedMemory sm3(n);
+     sm3.unlink();
+     ASSERT_EQ(0, sm3.fd_size());
+}
 //////////////////////////////////////////////////////////////////
